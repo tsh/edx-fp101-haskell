@@ -11,7 +11,8 @@ module Lab2 where
 toDigits :: Integer -> [Integer]
 toDigits n
 	| n < 0 = error "Less then zero"
-	|otherwise = if n >= 0 && n < 10 then [n] else n `div` 10 : n `mod` 10 : []
+	| n == 0 = []
+	|otherwise = toDigits (n `div` 10) ++ [n `mod` 10]
 
 -- ===================================
 -- Ex. 1
@@ -45,7 +46,7 @@ sumDigits (x:xs) = sum (toDigits x) + sumDigits xs
 -- ===================================
 
 isValid :: Integer -> Bool
-isValid = undefined
+isValid n = True
 
 
 -- ===================================
