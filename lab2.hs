@@ -9,23 +9,27 @@ module Lab2 where
 -- ===================================
 
 toDigits :: Integer -> [Integer]
-toDigits 0 = []
-toDigits n = ( toDigits ( n `div` 10)) ++ [ n `mod` 10]
+toDigits n
+	| n < 0 = error "Less then zero"
+	|otherwise = if n >= 0 && n < 10 then [n] else n `div` 10 : n `mod` 10 : []
 
 -- ===================================
 -- Ex. 1
 -- ===================================
 
 toDigitsRev :: Integer -> [Integer]
-toDigitsRev 0 = []
-toDigitsRev n = [n `mod` 10] ++ toDigitsRev ( n `div` 10)
+toDigitsRev n 
+	| n < 0 = error "Less then zero"
+	| otherwise = reverse (toDigits n)
 
 -- ===================================
 -- Ex. 2
 -- ===================================
 
 doubleSecond :: [Integer] -> [Integer]
-doubleSecond xs = [if odd i then x*2 else x | (x,i) <- xs `zip` [0..]]
+doubleSecond [] = []
+doubleSecond [x] = [x]
+doubleSecond (x1:x2:xs) = x1: (x2*2) : doubleSecond xs
 
 -- ===================================
 -- Ex. 3
@@ -33,7 +37,7 @@ doubleSecond xs = [if odd i then x*2 else x | (x,i) <- xs `zip` [0..]]
 
 sumDigits :: [Integer] -> Integer
 sumDigits [] = 0
-sumDigits (x:xs) = n + sumDigits xs where n = if x>9 then sumDigits (toDigits x) else x
+sumDigits (x:xs) = sum (toDigits x) + sumDigits xs
 
 
 -- ===================================
@@ -41,7 +45,7 @@ sumDigits (x:xs) = n + sumDigits xs where n = if x>9 then sumDigits (toDigits x)
 -- ===================================
 
 isValid :: Integer -> Bool
-isValid x = if sumDigits (toDigitsRev x) `mod` 10 == 0 then True else False
+isValid = undefined
 
 
 -- ===================================
