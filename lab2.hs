@@ -46,7 +46,7 @@ sumDigits (x:xs) = sum (toDigits x) + sumDigits xs
 -- ===================================
 
 isValid :: Integer -> Bool
-isValid n = True
+isValid n = (sumDigits (doubleSecond (toDigitsRev n)) `mod` 10) == 0
 
 
 -- ===================================
